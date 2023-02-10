@@ -8,21 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		CA2FBA31297FCEE500FD7EC1 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2FBA30297FCEE500FD7EC1 /* ImagesListCell.swift */; };
+		CA41180B298E33E00046E8D3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41180A298E33E00046E8D3 /* ProfileViewController.swift */; };
+		CA41D5362993B87B004D65CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA41D5352993B87B004D65CD /* Main.storyboard */; };
+		CA43BA5A2993808A0052F1FF /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA43BA592993808A0052F1FF /* SingleImageViewController.swift */; };
 		CAC31247297A405900C25BBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC31246297A405900C25BBC /* AppDelegate.swift */; };
 		CAC31249297A405900C25BBC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC31248297A405900C25BBC /* SceneDelegate.swift */; };
 		CAC3124B297A405900C25BBC /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3124A297A405900C25BBC /* ImagesListViewController.swift */; };
-		CAC3124E297A405900C25BBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAC3124C297A405900C25BBC /* Main.storyboard */; };
 		CAC31250297A405A00C25BBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAC3124F297A405A00C25BBC /* Assets.xcassets */; };
 		CAC31253297A405A00C25BBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAC31251297A405A00C25BBC /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CA2FBA30297FCEE500FD7EC1 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
+		CA41180A298E33E00046E8D3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		CA41D5352993B87B004D65CD /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		CA43BA592993808A0052F1FF /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		CAC31243297A405900C25BBC /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC31246297A405900C25BBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAC31248297A405900C25BBC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CAC3124A297A405900C25BBC /* ImagesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListViewController.swift; sourceTree = "<group>"; };
-		CAC3124D297A405900C25BBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CAC3124F297A405A00C25BBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CAC31252297A405A00C25BBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CAC31254297A405A00C25BBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -48,6 +52,22 @@
 			path = ImagesList;
 			sourceTree = "<group>";
 		};
+		CA41D5372993BA2F004D65CD /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				CA41180A298E33E00046E8D3 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		CA41D5382993BA45004D65CD /* SingleImageView */ = {
+			isa = PBXGroup;
+			children = (
+				CA43BA592993808A0052F1FF /* SingleImageViewController.swift */,
+			);
+			path = SingleImageView;
+			sourceTree = "<group>";
+		};
 		CAC3123A297A405900C25BBC = {
 			isa = PBXGroup;
 			children = (
@@ -67,10 +87,12 @@
 		CAC31245297A405900C25BBC /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
-				CA2FBA32297FCF1F00FD7EC1 /* ImagesList */,
 				CAC31246297A405900C25BBC /* AppDelegate.swift */,
 				CAC31248297A405900C25BBC /* SceneDelegate.swift */,
-				CAC3124C297A405900C25BBC /* Main.storyboard */,
+				CA41D5372993BA2F004D65CD /* Profile */,
+				CA2FBA32297FCF1F00FD7EC1 /* ImagesList */,
+				CA41D5382993BA45004D65CD /* SingleImageView */,
+				CA41D5352993B87B004D65CD /* Main.storyboard */,
 				CAC3124F297A405A00C25BBC /* Assets.xcassets */,
 				CAC31251297A405A00C25BBC /* LaunchScreen.storyboard */,
 				CAC31254297A405A00C25BBC /* Info.plist */,
@@ -137,8 +159,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAC31253297A405A00C25BBC /* LaunchScreen.storyboard in Resources */,
+				CA41D5362993B87B004D65CD /* Main.storyboard in Resources */,
 				CAC31250297A405A00C25BBC /* Assets.xcassets in Resources */,
-				CAC3124E297A405900C25BBC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +173,9 @@
 			files = (
 				CAC3124B297A405900C25BBC /* ImagesListViewController.swift in Sources */,
 				CA2FBA31297FCEE500FD7EC1 /* ImagesListCell.swift in Sources */,
+				CA41180B298E33E00046E8D3 /* ProfileViewController.swift in Sources */,
 				CAC31247297A405900C25BBC /* AppDelegate.swift in Sources */,
+				CA43BA5A2993808A0052F1FF /* SingleImageViewController.swift in Sources */,
 				CAC31249297A405900C25BBC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,14 +183,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		CAC3124C297A405900C25BBC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CAC3124D297A405900C25BBC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CAC31251297A405A00C25BBC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
