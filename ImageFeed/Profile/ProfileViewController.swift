@@ -9,5 +9,15 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    @IBOutlet var avatarImageView: UIImageView!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var loginNameLabel: UILabel!
+    @IBOutlet var descriptionLabel: UILabel!
+    
+    @IBOutlet var logOutButton: UIButton!
+    
+    @IBAction func didTabLogoutButton() {
+    }
+    
 }
 
