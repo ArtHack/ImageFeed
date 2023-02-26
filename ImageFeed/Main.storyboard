@@ -287,19 +287,27 @@
                                     <action selector="didTapBackButton:" destination="Emr-JP-bt6" eventType="touchUpInside" id="Mrl-W4-QyO"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HjA-l5-dcu">
+                                <rect key="frame" x="0.0" y="80" width="414" height="4"/>
+                                <color key="tintColor" name="YP Black"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4Pa-ax-H0w"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="usL-4m-Ahm" firstAttribute="leading" secondItem="3mU-Il-bx2" secondAttribute="leading" id="5Ss-eP-7My"/>
+                            <constraint firstItem="4Pa-ax-H0w" firstAttribute="trailing" secondItem="HjA-l5-dcu" secondAttribute="trailing" id="5Uo-4L-fTQ"/>
                             <constraint firstAttribute="bottom" secondItem="usL-4m-Ahm" secondAttribute="bottom" id="8H7-b4-OHk"/>
                             <constraint firstItem="4iD-8e-8GP" firstAttribute="leading" secondItem="4Pa-ax-H0w" secondAttribute="leading" id="I5U-GL-cVx"/>
                             <constraint firstItem="4iD-8e-8GP" firstAttribute="top" secondItem="4Pa-ax-H0w" secondAttribute="top" id="VVh-k1-THN"/>
+                            <constraint firstItem="HjA-l5-dcu" firstAttribute="leading" secondItem="4Pa-ax-H0w" secondAttribute="leading" id="qJR-0c-Ob0"/>
+                            <constraint firstItem="HjA-l5-dcu" firstAttribute="top" secondItem="4Pa-ax-H0w" secondAttribute="top" constant="32" id="ue0-A1-3CZ"/>
                             <constraint firstItem="usL-4m-Ahm" firstAttribute="top" secondItem="3mU-Il-bx2" secondAttribute="top" id="ujc-bw-NF6"/>
                             <constraint firstAttribute="trailing" secondItem="usL-4m-Ahm" secondAttribute="trailing" id="zij-E1-otF"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressView" destination="HjA-l5-dcu" id="Pdp-4A-zIx"/>
                         <outlet property="webView" destination="usL-4m-Ahm" id="Gsk-1L-Xcn"/>
                     </connections>
                 </viewController>
