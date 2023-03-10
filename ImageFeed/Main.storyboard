@@ -169,10 +169,39 @@
             </objects>
             <point key="canvasLocation" x="1764" y="-220"/>
         </scene>
+        <!--Unsplash-->
+        <scene sceneID="rW5-4H-wO3">
+            <objects>
+                <viewController storyboardIdentifier="SplashViewController" id="Ko0-kM-H3H" userLabel="Unsplash" customClass="SplashViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gr6-gg-1Fe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="splash_screen_logo" translatesAutoresizingMaskIntoConstraints="NO" id="z5E-Di-vsf">
+                                <rect key="frame" x="87" y="384" width="240" height="128"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SWY-UL-Y6G"/>
+                        <color key="backgroundColor" name="YP Black"/>
+                        <constraints>
+                            <constraint firstItem="z5E-Di-vsf" firstAttribute="centerX" secondItem="gr6-gg-1Fe" secondAttribute="centerX" id="GYM-0B-aYL"/>
+                            <constraint firstItem="z5E-Di-vsf" firstAttribute="centerY" secondItem="gr6-gg-1Fe" secondAttribute="centerY" id="y3K-OT-Xl9"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Unsplash" id="qne-Uc-QxN" userLabel="Unsplash"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="urS-BA-Lkd" kind="presentation" identifier="ShowAuthenticationScreen" id="q3f-Y6-go5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LJh-db-B2e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1068" y="-414"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="NWw-lB-Rtt">
             <objects>
-                <tabBarController id="1Py-29-sRa" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="1Py-29-sRa" customClass="TabBarController" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qXQ-GP-3cq">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -238,7 +267,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="Emr-JP-bt6" kind="presentation" modalPresentationStyle="overFullScreen" id="GBv-Jw-rgN"/>
+                                    <segue destination="Emr-JP-bt6" kind="presentation" identifier="ShowWebView" modalPresentationStyle="overFullScreen" id="GBv-Jw-rgN"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -257,7 +286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kw-Q8-RHv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2715.9420289855075" y="485.49107142857139"/>
+            <point key="canvasLocation" x="919" y="-981"/>
         </scene>
         <!--Web View View Controller-->
         <scene sceneID="V6d-lq-EPw">
@@ -288,7 +317,7 @@
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HjA-l5-dcu">
-                                <rect key="frame" x="0.0" y="80" width="414" height="4"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="4"/>
                                 <color key="tintColor" name="YP Black"/>
                             </progressView>
                         </subviews>
@@ -301,11 +330,12 @@
                             <constraint firstItem="4iD-8e-8GP" firstAttribute="leading" secondItem="4Pa-ax-H0w" secondAttribute="leading" id="I5U-GL-cVx"/>
                             <constraint firstItem="4iD-8e-8GP" firstAttribute="top" secondItem="4Pa-ax-H0w" secondAttribute="top" id="VVh-k1-THN"/>
                             <constraint firstItem="HjA-l5-dcu" firstAttribute="leading" secondItem="4Pa-ax-H0w" secondAttribute="leading" id="qJR-0c-Ob0"/>
-                            <constraint firstItem="HjA-l5-dcu" firstAttribute="top" secondItem="4Pa-ax-H0w" secondAttribute="top" constant="32" id="ue0-A1-3CZ"/>
+                            <constraint firstItem="HjA-l5-dcu" firstAttribute="top" secondItem="4Pa-ax-H0w" secondAttribute="top" constant="40" id="ue0-A1-3CZ"/>
                             <constraint firstItem="usL-4m-Ahm" firstAttribute="top" secondItem="3mU-Il-bx2" secondAttribute="top" id="ujc-bw-NF6"/>
                             <constraint firstAttribute="trailing" secondItem="usL-4m-Ahm" secondAttribute="trailing" id="zij-E1-otF"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="UOZ-gR-Jho" userLabel="Nvigation Item"/>
                     <connections>
                         <outlet property="progressView" destination="HjA-l5-dcu" id="Pdp-4A-zIx"/>
                         <outlet property="webView" destination="usL-4m-Ahm" id="Gsk-1L-Xcn"/>
@@ -313,12 +343,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T7y-mu-cPh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3470" y="485"/>
+            <point key="canvasLocation" x="1764" y="-981"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cUC-BZ-EHA">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="urS-BA-Lkd" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" id="urS-BA-Lkd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rMV-9W-kzz">
                         <rect key="frame" x="0.0" y="48" width="414" height="44"/>
@@ -331,7 +361,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nIh-Hr-BQM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1805.7971014492755" y="485.49107142857139"/>
+            <point key="canvasLocation" x="-78" y="-981"/>
         </scene>
     </scenes>
     <resources>
@@ -341,6 +371,7 @@
         <image name="nav_back_button_black" width="9" height="16"/>
         <image name="nav_back_button_white" width="24" height="24"/>
         <image name="share_button" width="50" height="50"/>
+        <image name="splash_screen_logo" width="73" height="75.5"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <image name="tab_profile_active" width="30" height="30"/>
         <namedColor name="YP Black">

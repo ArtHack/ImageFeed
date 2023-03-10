@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  ImageFeed
-//
-//  Created by Unwraper Man on 20.01.2023.
-//
-
 import UIKit
 
 @main
