@@ -1,5 +1,3 @@
-
-    
 import Foundation
 
 final class OAuth2Service {
@@ -13,10 +11,10 @@ final class OAuth2Service {
             OAuth2TokenStorage().token = newValue
         }
     }
-    
+
     func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
         guard let request = authTokenRequest(code: code) else { return }
-        
+
         object(for: request) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -32,7 +30,7 @@ final class OAuth2Service {
 }
 
 extension OAuth2Service {
-        
+
     private func authTokenRequest(code: String) -> URLRequest? {
         guard let url = URL(string: "https://unsplash.com") else { return nil }
         return URLRequest.makeHTTPRequest(
@@ -45,7 +43,7 @@ extension OAuth2Service {
             httpMethod: "POST",
             baseURL: url)
     }
-        
+
     private func object(for request: URLRequest,
                         completion: @escaping (Result<OAuthTokenResponseBody, Error>) -> Void) {
         let decoder = JSONDecoder()
@@ -59,13 +57,13 @@ extension OAuth2Service {
             return
         }
     }
-        
+
     private struct OAuthTokenResponseBody: Decodable {
         let accessToken: String
         let tokenType: String
         let scope: String
         let createdAt: Int
-        
+
         enum CodingKeys: String, CodingKey {
             case accessToken = "access_token"
             case tokenType = "token_type"
@@ -109,7 +107,7 @@ extension URLRequest {
                 return
             }
         }
-            
+
         let task = OAuth2Service.shared.urlSession.dataTask(with: request, completionHandler: { data, response, error in
             if let data = data,
                 let response = response,
