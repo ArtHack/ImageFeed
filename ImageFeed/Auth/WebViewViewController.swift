@@ -21,10 +21,10 @@ final class WebViewViewController: UIViewController {
 
         var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
         urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: AccessKey),
-            URLQueryItem(name: "redirect_uri", value: RedirectURI),
+            URLQueryItem(name: "client_id", value: accessKey),
+            URLQueryItem(name: "redirect_uri", value: redirectURI),
             URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: AccessScope)
+            URLQueryItem(name: "scope", value: accessScope)
         ]
         let url = urlComponents.url!
 
@@ -34,10 +34,10 @@ final class WebViewViewController: UIViewController {
         updateProgress()
     }
 
-    @IBAction private func didTapBackButton(_ sender: Any?) {
-        delegate?.webViewViewControllerDidCancel(self)
+ 
+    @IBAction func didTapBackButton(_ sender: Any) { delegate?.webViewViewControllerDidCancel(self)
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // NOTE: Since the class is marked as `final` we don't need to pass a context.
