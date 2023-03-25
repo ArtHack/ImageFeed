@@ -8,6 +8,10 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
+    
+    private let profileService = ProfileService.shared
+    private let token = OAuth2TokenStorage().token
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,7 +26,6 @@ final class ProfileViewController: UIViewController {
         avatarImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         
         let nameLabel = UILabel()
-        nameLabel.text = "Екатерина Новикова"
         nameLabel.font = .systemFont(ofSize: 23)
         nameLabel.textColor = .white
         view.addSubview(nameLabel)
@@ -33,7 +36,6 @@ final class ProfileViewController: UIViewController {
         nameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 8).isActive = true
         
         let loginNameLabel = UILabel()
-        loginNameLabel.text = "@ekaterina_now"
         loginNameLabel.font = .systemFont(ofSize: 13)
         loginNameLabel.textColor = .white
         view.addSubview(loginNameLabel)
@@ -44,7 +46,6 @@ final class ProfileViewController: UIViewController {
         loginNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8).isActive = true
         
         let descriptionLabel = UILabel()
-        descriptionLabel.text = "Hello, World!"
         descriptionLabel.font = .systemFont(ofSize: 13)
         descriptionLabel.textColor = .white
         view.addSubview(descriptionLabel)
@@ -61,6 +62,20 @@ final class ProfileViewController: UIViewController {
         
         logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         logoutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 55).isActive = true
+        
+//        guard let token = OAuth2TokenStorage().token else { return }
+//        
+//        profileService.fetchProfile(token) { [weak self] result in
+//            guard self != nil else { return }
+//            switch result {
+//            case .success(let profile):
+//                nameLabel.text = profile.name
+//                loginNameLabel.text = "@" + (profile.userName ?? "")
+//                descriptionLabel.text = profile.bio
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
 }
 

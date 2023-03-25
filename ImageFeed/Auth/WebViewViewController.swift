@@ -35,13 +35,13 @@ final class WebViewViewController: UIViewController {
     }
 
  
-    @IBAction func didTapBackButton(_ sender: Any) { delegate?.webViewViewControllerDidCancel(self)
+    @IBAction func didTapBackButton(_ sender: Any) {
+        delegate?.webViewViewControllerDidCancel(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // NOTE: Since the class is marked as `final` we don't need to pass a context.
-        // In case of inhertiance context must not be nil.
+
         webView.addObserver(
             self,
             forKeyPath: #keyPath(WKWebView.estimatedProgress),
