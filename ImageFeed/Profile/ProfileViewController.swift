@@ -10,72 +10,109 @@ import UIKit
 final class ProfileViewController: UIViewController {
     
     private let profileService = ProfileService.shared
-    private let token = OAuth2TokenStorage().token
-    
+    private let profile = Profile()
+    private lazy var avatarImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+//        label.text = "Екатерина Новикова"
+        label.textColor = .ypWhite
+        label.font = .boldSystemFont(ofSize: 23)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let loginNameLabel: UILabel = {
+        let label = UILabel()
+//        label.text = "@ekaterina_nov"
+        label.textColor = .ypGray
+        label.font = .systemFont(ofSize: 13)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+//        label.text = "Hello, world!!!"
+        label.textColor = .ypWhite
+        label.font = .systemFont(ofSize: 13)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var logoutButton: UIButton = {
+        let button = UIButton.systemButton(
+            with: UIImage(named: "logout_button")!,
+            target: self,
+            action: #selector(Self.didTapLogoutButton)
+        )
+        button.tintColor = .ypRed
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let avatarImage = UIImage(named: "avatar")
-        let avatarImageView = UIImageView(image: avatarImage)
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(avatarImageView)
-        
-        avatarImageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        avatarImageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        avatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
-        avatarImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
-        
-        let nameLabel = UILabel()
-        nameLabel.font = .systemFont(ofSize: 23)
-        nameLabel.textColor = .white
+
+        addSubviews()
+        setupLayout()
+        updateProfileDetails(profile: Profile())
+    }
+
+    @objc
+    private func didTapLogoutButton() {
+        print("didTapLogoutButton")
+    }
+
+    private func addSubviews() {
+        view.addSubview(avatarImage)
         view.addSubview(nameLabel)
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor).isActive = true
-        nameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 16).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 8).isActive = true
-        
-        let loginNameLabel = UILabel()
-        loginNameLabel.font = .systemFont(ofSize: 13)
-        loginNameLabel.textColor = .white
         view.addSubview(loginNameLabel)
-        loginNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        loginNameLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
-        loginNameLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor).isActive = true
-        loginNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8).isActive = true
-        
-        let descriptionLabel = UILabel()
-        descriptionLabel.font = .systemFont(ofSize: 13)
-        descriptionLabel.textColor = .white
         view.addSubview(descriptionLabel)
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        descriptionLabel.leadingAnchor.constraint(equalTo: loginNameLabel.leadingAnchor).isActive = true
-        descriptionLabel.trailingAnchor.constraint(equalTo: loginNameLabel.trailingAnchor).isActive = true
-        descriptionLabel.topAnchor.constraint(equalTo: loginNameLabel.bottomAnchor, constant: 8).isActive = true
-        
-        let logoutButton = UIButton.systemButton(with: UIImage(named: "logout_button") ?? UIImage(), target: nil, action: nil)
-        logoutButton.tintColor = .red
         view.addSubview(logoutButton)
-        logoutButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
-        logoutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 55).isActive = true
-        
-//        guard let token = OAuth2TokenStorage().token else { return }
-//        
-//        profileService.fetchProfile(token) { [weak self] result in
-//            guard self != nil else { return }
-//            switch result {
-//            case .success(let profile):
-//                nameLabel.text = profile.name
-//                loginNameLabel.text = "@" + (profile.userName ?? "")
-//                descriptionLabel.text = profile.bio
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
+    }
+
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+
+            avatarImage.widthAnchor.constraint(equalToConstant: 70),
+            avatarImage.heightAnchor.constraint(equalToConstant: 70),
+            avatarImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            avatarImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+
+            nameLabel.topAnchor.constraint(equalTo: avatarImage.bottomAnchor, constant: 8),
+            nameLabel.leadingAnchor.constraint(equalTo: avatarImage.leadingAnchor),
+
+            loginNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            loginNameLabel.leadingAnchor.constraint(equalTo: avatarImage.leadingAnchor),
+
+            descriptionLabel.topAnchor.constraint(equalTo: loginNameLabel.bottomAnchor, constant: 8),
+            descriptionLabel.leadingAnchor.constraint(equalTo: avatarImage.leadingAnchor),
+
+            logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -26),
+            logoutButton.centerYAnchor.constraint(equalTo: avatarImage.centerYAnchor)
+            ])
+    }
+    
+    private func updateProfileDetails(profile: Profile) {
+        profileService.fetchProfile(OAuth2TokenStorage().token ?? "") { [weak self] result in
+            switch result {
+            case .success(let profile):
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.nameLabel.text = profile.name
+                    self.loginNameLabel.text = "@" + (profile.userName ?? "")
+                    self.descriptionLabel.text = profile.bio
+                }
+            case .failure(let error):
+                print(error)
+            }
+
+        }
     }
 }
 

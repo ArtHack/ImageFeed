@@ -49,7 +49,6 @@ final class ProfileService {
         }
         self.task = task
         task?.resume()
-    
     }
     private func fetchProfileRequest(_ token: String) -> URLRequest? {
         guard let url = URL(string: "https://api.unsplash.com") else { return nil }

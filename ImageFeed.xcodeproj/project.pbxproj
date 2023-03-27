@@ -13,6 +13,7 @@
 		CA1E173B29BD972B00280017 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = CA1E173A29BD972B00280017 /* ProgressHUD */; };
 		CA1E173D29BFA6BE00280017 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1E173C29BFA6BE00280017 /* UIBlockingProgressHUD.swift */; };
 		CA1E173F29C031F800280017 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1E173E29C031F800280017 /* ProfileService.swift */; };
+		CA1E176429CECF8D00280017 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1E176329CECF8D00280017 /* Color+Extension.swift */; };
 		CA2FBA31297FCEE500FD7EC1 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2FBA30297FCEE500FD7EC1 /* ImagesListCell.swift */; };
 		CA41180B298E33E00046E8D3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41180A298E33E00046E8D3 /* ProfileViewController.swift */; };
 		CA41D5362993B87B004D65CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA41D5352993B87B004D65CD /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		CA1E170E29B45E6D00280017 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		CA1E173C29BFA6BE00280017 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		CA1E173E29C031F800280017 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		CA1E176329CECF8D00280017 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		CA2FBA30297FCEE500FD7EC1 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		CA41180A298E33E00046E8D3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CA41D5352993B87B004D65CD /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 			path = SplashViewController;
 			sourceTree = "<group>";
 		};
+		CA1E176229CECF2300280017 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				CA1E176329CECF8D00280017 /* Color+Extension.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		CA2FBA32297FCF1F00FD7EC1 /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +141,7 @@
 		CAC31245297A405900C25BBC /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				CA1E176229CECF2300280017 /* Helpers */,
 				CA1E170D29B45E4500280017 /* SplashViewController */,
 				CA1E170729B45CB900280017 /* ServiceAccessLayer */,
 				CAFA9A1A29A5DED8006021CF /* Auth */,
@@ -236,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAC3124B297A405900C25BBC /* ImagesListViewController.swift in Sources */,
+				CA1E176429CECF8D00280017 /* Color+Extension.swift in Sources */,
 				CA2FBA31297FCEE500FD7EC1 /* ImagesListCell.swift in Sources */,
 				CA41180B298E33E00046E8D3 /* ProfileViewController.swift in Sources */,
 				CA1E170F29B45E6D00280017 /* SplashViewController.swift in Sources */,
