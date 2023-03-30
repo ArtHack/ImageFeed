@@ -2,26 +2,40 @@ import UIKit
 import ProgressHUD
 
 final class SplashViewController: UIViewController {
+    
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
-
+    
+    private let profileImageService = ProfileImageService.shared
     private let profileService = ProfileService.shared
-    private let oauth2Service = OAuth2Service()
+    private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2TokenStorage()
+    
+    private lazy var avatarImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "splash_screen_logo")
+        return imageView
+    }()
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         if oauth2TokenStorage.token != nil {
-            switchToTabBarController()
+            guard let token = oauth2TokenStorage.token else { return }
+            fetchProfile(token: token)
         } else {
-            // Show Auth Screen
-            performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let viewConroller = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController else { return }
+            viewConroller.delegate = self
+            viewConroller.modalPresentationStyle = .fullScreen
+            present(viewConroller, animated: true)
         }
     }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
+        addSubview()
+        setupLayout()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -68,6 +82,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.fetchProfile(token: token)
             case .failure:
                 UIBlockingProgressHUD().dismiss()
+                self.showErrorAlert()
                 break
             }
         }
@@ -77,14 +92,40 @@ extension SplashViewController: AuthViewControllerDelegate {
         profileService.fetchProfile(token) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success:
-                UIBlockingProgressHUD().dismiss()
+            case .success(let profile):
+                self.profileImageService.fetchProfileImageURL(token, username: profile.userName) { _ in }
                 self.switchToTabBarController()
-            case .failure(let error):
+            case .failure:
                 UIBlockingProgressHUD().dismiss()
-                print(error)
                 break
             }
         }
+    }
+}
+
+extension SplashViewController {
+    func showErrorAlert() {
+        let alertController = UIAlertController(
+            title: "Что-то пошло не так(",
+            message: "Не удалось войти в систему",
+            preferredStyle: .alert)
+        let action = UIAlertAction(
+            title: "OK",
+            style: .default)
+        alertController.addAction(action)
+        present(alertController, animated: true)
+    }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            avatarImage.widthAnchor.constraint(equalToConstant: 75),
+            avatarImage.heightAnchor.constraint(equalToConstant: 77.68),
+            avatarImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            avatarImage.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    private func addSubview() {
+        view.addSubview(avatarImage)
     }
 }

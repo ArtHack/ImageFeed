@@ -1,6 +1,6 @@
 import Foundation
 
-struct ProfileResult: Codable {
+struct ProfileResult: Decodable {
     var userName: String?
     var firstName: String?
     var lastName: String?
@@ -50,6 +50,7 @@ final class ProfileService {
         self.task = task
         task?.resume()
     }
+    
     private func fetchProfileRequest(_ token: String) -> URLRequest? {
         guard let url = URL(string: "https://api.unsplash.com") else { return nil }
         

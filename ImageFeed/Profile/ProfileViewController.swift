@@ -9,8 +9,10 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
+    private var profileImageServiceObserver: NSObjectProtocol?
     private let profileService = ProfileService.shared
     private let profile = Profile()
+    
     private lazy var avatarImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,6 +63,18 @@ final class ProfileViewController: UIViewController {
         addSubviews()
         setupLayout()
         updateProfileDetails(profile: Profile())
+        updateAvatar()
+        
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.DidCahngeNottification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
     }
 
     @objc
@@ -113,6 +127,17 @@ final class ProfileViewController: UIViewController {
             }
 
         }
+    }
+    
+    private func updateAvatar() {
+        view.backgroundColor = .ypBlack
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+//        let processor = RoundCornerImageProcessor(cornerRadius: 35, backgroundColor: .clear)
+//        imageView.kf.indicatorType = .activity
+//        imageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options: [.processor(processor), .cacheSerializer(FormatIndicatedCacheSerializer.png)])
     }
 }
 
