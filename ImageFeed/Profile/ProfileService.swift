@@ -15,10 +15,10 @@ struct ProfileResult: Decodable {
 }
 
 public struct Profile {
-    var userName: String?
-    var name: String?
-    var loginName: String?
-    var bio: String?
+    let userName: String?
+    let name: String?
+    let loginName: String?
+    let bio: String?
 }
 
 final class ProfileService {
@@ -26,7 +26,8 @@ final class ProfileService {
     static let shared = ProfileService()
     private var task: URLSessionTask?
     private (set) var profile: Profile?
-    
+}
+extension ProfileService {
     public func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         assert(Thread.isMainThread)
         task?.cancel()
@@ -41,6 +42,7 @@ final class ProfileService {
                 self.profile = Profile(
                     userName: profileResult.userName ?? "",
                     name: "\(profileResult.firstName ?? "")" + " " + "\(profileResult.lastName ?? "")",
+                    loginName: "@\(profileResult.userName ?? "")",
                     bio: profileResult.bio ?? "")
                 completion(.success(self.profile!))
             case .failure(let error):

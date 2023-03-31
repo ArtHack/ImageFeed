@@ -9,7 +9,7 @@ struct UserResult: Decodable {
 }
 
 struct ImageURL: Decodable {
-    let smallImage: String?
+    let small: String?
 }
 
 final class ProfileImageService {
@@ -36,17 +36,15 @@ extension ProfileImageService {
             self.task = nil
             switch result {
             case .success(let userResult):
-                self.avatarURL = userResult.profileImage?.smallImage
+                self.avatarURL = userResult.profileImage?.small
                 NotificationCenter.default
                     .post(
                         name: ProfileImageService.DidCahngeNottification,
                         object: self,
-                        userInfo: ["URL": self.avatarURL ?? ""])
+                        userInfo: ["URL" : self.avatarURL ?? ""])
                 completion(.success(self.avatarURL))
-                print(self.avatarURL)
             case .failure(let error):
                 completion(.failure(error))
-                print(error)
             }
         }
         self.task = task

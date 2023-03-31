@@ -6,22 +6,23 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
     private var profileImageServiceObserver: NSObjectProtocol?
     private let profileService = ProfileService.shared
-    private let profile = Profile()
     
-    private lazy var avatarImage: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
+//        let image = UIImage(named: "avatar")
+//        imageView.image = image
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-//        label.text = "Екатерина Новикова"
         label.textColor = .ypWhite
         label.font = .boldSystemFont(ofSize: 23)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +31,6 @@ final class ProfileViewController: UIViewController {
 
     private let loginNameLabel: UILabel = {
         let label = UILabel()
-//        label.text = "@ekaterina_nov"
         label.textColor = .ypGray
         label.font = .systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,6 @@ final class ProfileViewController: UIViewController {
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-//        label.text = "Hello, world!!!"
         label.textColor = .ypWhite
         label.font = .systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +61,7 @@ final class ProfileViewController: UIViewController {
 
         addSubviews()
         setupLayout()
-        updateProfileDetails(profile: Profile())
+        updateProfileDetails()
         updateAvatar()
         
         profileImageServiceObserver = NotificationCenter.default
@@ -83,7 +82,7 @@ final class ProfileViewController: UIViewController {
     }
 
     private func addSubviews() {
-        view.addSubview(avatarImage)
+        view.addSubview(imageView)
         view.addSubview(nameLabel)
         view.addSubview(loginNameLabel)
         view.addSubview(descriptionLabel)
@@ -93,40 +92,29 @@ final class ProfileViewController: UIViewController {
     private func setupLayout() {
         NSLayoutConstraint.activate([
 
-            avatarImage.widthAnchor.constraint(equalToConstant: 70),
-            avatarImage.heightAnchor.constraint(equalToConstant: 70),
-            avatarImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
-            avatarImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            imageView.widthAnchor.constraint(equalToConstant: 70),
+            imageView.heightAnchor.constraint(equalToConstant: 70),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
 
-            nameLabel.topAnchor.constraint(equalTo: avatarImage.bottomAnchor, constant: 8),
-            nameLabel.leadingAnchor.constraint(equalTo: avatarImage.leadingAnchor),
+            nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+            nameLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
 
             loginNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            loginNameLabel.leadingAnchor.constraint(equalTo: avatarImage.leadingAnchor),
+            loginNameLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
 
             descriptionLabel.topAnchor.constraint(equalTo: loginNameLabel.bottomAnchor, constant: 8),
-            descriptionLabel.leadingAnchor.constraint(equalTo: avatarImage.leadingAnchor),
+            descriptionLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
 
             logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -26),
-            logoutButton.centerYAnchor.constraint(equalTo: avatarImage.centerYAnchor)
+            logoutButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
             ])
     }
     
-    private func updateProfileDetails(profile: Profile) {
-        profileService.fetchProfile(OAuth2TokenStorage().token ?? "") { [weak self] result in
-            switch result {
-            case .success(let profile):
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.nameLabel.text = profile.name
-                    self.loginNameLabel.text = "@" + (profile.userName ?? "")
-                    self.descriptionLabel.text = profile.bio
-                }
-            case .failure(let error):
-                print(error)
-            }
-
-        }
+    private func updateProfileDetails() {
+        nameLabel.text = profileService.profile?.name
+        loginNameLabel.text = profileService.profile?.loginName
+        descriptionLabel.text = profileService.profile?.bio
     }
     
     private func updateAvatar() {
@@ -135,9 +123,9 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
         else { return }
-//        let processor = RoundCornerImageProcessor(cornerRadius: 35, backgroundColor: .clear)
-//        imageView.kf.indicatorType = .activity
-//        imageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options: [.processor(processor), .cacheSerializer(FormatIndicatedCacheSerializer.png)])
+        let processor = RoundCornerImageProcessor(cornerRadius: 35, backgroundColor: .clear)
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: url, placeholder: UIImage(named: "tab_profile_active"), options: [.processor(processor), .cacheSerializer(FormatIndicatedCacheSerializer.png)])
     }
 }
 

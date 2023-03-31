@@ -10,7 +10,7 @@ final class SplashViewController: UIViewController {
     private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2TokenStorage()
     
-    private lazy var avatarImage: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "splash_screen_logo")
@@ -20,8 +20,8 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if oauth2TokenStorage.token != nil {
-            guard let token = oauth2TokenStorage.token else { return }
+        if OAuth2TokenStorage().token != nil {
+            guard let token = OAuth2TokenStorage().token else { return }
             fetchProfile(token: token)
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -31,6 +31,7 @@ final class SplashViewController: UIViewController {
             present(viewConroller, animated: true)
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
@@ -43,7 +44,8 @@ final class SplashViewController: UIViewController {
     }
 
     private func switchToTabBarController() {
-        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        guard let window = UIApplication.shared.windows.first else {
+            fatalError("Invalid Configuration") }
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
@@ -118,14 +120,14 @@ extension SplashViewController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            avatarImage.widthAnchor.constraint(equalToConstant: 75),
-            avatarImage.heightAnchor.constraint(equalToConstant: 77.68),
-            avatarImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            avatarImage.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            imageView.widthAnchor.constraint(equalToConstant: 75),
+            imageView.heightAnchor.constraint(equalToConstant: 77.68),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
     private func addSubview() {
-        view.addSubview(avatarImage)
+        view.addSubview(imageView)
     }
 }
