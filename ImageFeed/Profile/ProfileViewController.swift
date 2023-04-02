@@ -15,8 +15,8 @@ final class ProfileViewController: UIViewController {
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-//        let image = UIImage(named: "avatar")
-//        imageView.image = image
+        imageView.layer.cornerRadius = 35.0
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -58,6 +58,7 @@ final class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         addSubviews()
         setupLayout()
@@ -73,8 +74,7 @@ final class ProfileViewController: UIViewController {
                 guard let self = self else { return }
                 self.updateAvatar()
             }
-        updateAvatar()
-    }
+        }
 
     @objc
     private func didTapLogoutButton() {
@@ -123,9 +123,12 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
         else { return }
-        let processor = RoundCornerImageProcessor(cornerRadius: 35, backgroundColor: .clear)
         imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: url, placeholder: UIImage(named: "tab_profile_active"), options: [.processor(processor), .cacheSerializer(FormatIndicatedCacheSerializer.png)])
+        imageView.kf.setImage(with: url,
+                              placeholder: UIImage(named: "tab_profile_active"),
+                              options: [.cacheSerializer(FormatIndicatedCacheSerializer.png)]
+        )
+        imageView.contentMode = .scaleAspectFill
     }
 }
 
