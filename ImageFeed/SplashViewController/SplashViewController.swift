@@ -72,7 +72,6 @@ extension SplashViewController: AuthViewControllerDelegate {
             guard let self = self else { return }
             UIBlockingProgressHUD().show()
             self.fetchOAuthToken(code)
-            
         }
     }
 
@@ -91,6 +90,7 @@ extension SplashViewController: AuthViewControllerDelegate {
     }
     
     private func fetchProfile(token: String) {
+        
         profileService.fetchProfile(token) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -98,9 +98,9 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.profileImageService.fetchProfileImageURL(token, username: profile.userName) { _ in }
                 self.switchToTabBarController()
             case .failure:
+                UIBlockingProgressHUD().dismiss()
                 break
             }
-            UIBlockingProgressHUD().dismiss()
         }
     }
 }
