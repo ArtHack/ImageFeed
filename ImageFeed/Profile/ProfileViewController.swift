@@ -78,7 +78,6 @@ final class ProfileViewController: UIViewController {
 
     @objc
     private func didTapLogoutButton() {
-        print("didTapLogoutButton")
     }
 
     private func addSubviews() {

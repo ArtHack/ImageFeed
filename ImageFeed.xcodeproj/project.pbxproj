@@ -19,6 +19,8 @@
 		CA1E176C29D5C6D800280017 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CA1E176B29D5C6D800280017 /* SwiftKeychainWrapper */; };
 		CA1E176E29D6B20100280017 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1E176D29D6B20100280017 /* TabBarController.swift */; };
 		CA1E177029DD255700280017 /* ImagesListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1E176F29DD255600280017 /* ImagesListService.swift */; };
+		CA28E48E29E5B3E2006E341F /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA28E48D29E5B3E2006E341F /* URLSession+Extension.swift */; };
+		CA28E49029E5B473006E341F /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA28E48F29E5B473006E341F /* URLRequest+Extension.swift */; };
 		CA2FBA31297FCEE500FD7EC1 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2FBA30297FCEE500FD7EC1 /* ImagesListCell.swift */; };
 		CA41180B298E33E00046E8D3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA41180A298E33E00046E8D3 /* ProfileViewController.swift */; };
 		CA41D5362993B87B004D65CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA41D5352993B87B004D65CD /* Main.storyboard */; };
@@ -43,6 +45,8 @@
 		CA1E176529D192B800280017 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
 		CA1E176D29D6B20100280017 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		CA1E176F29DD255600280017 /* ImagesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListService.swift; sourceTree = "<group>"; };
+		CA28E48D29E5B3E2006E341F /* URLSession+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extension.swift"; sourceTree = "<group>"; };
+		CA28E48F29E5B473006E341F /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		CA2FBA30297FCEE500FD7EC1 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		CA41180A298E33E00046E8D3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CA41D5352993B87B004D65CD /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				CA1E176329CECF8D00280017 /* Color+Extension.swift */,
+				CA28E48D29E5B3E2006E341F /* URLSession+Extension.swift */,
+				CA28E48F29E5B473006E341F /* URLRequest+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -268,12 +274,14 @@
 				CA2FBA31297FCEE500FD7EC1 /* ImagesListCell.swift in Sources */,
 				CA41180B298E33E00046E8D3 /* ProfileViewController.swift in Sources */,
 				CA1E170F29B45E6D00280017 /* SplashViewController.swift in Sources */,
+				CA28E49029E5B473006E341F /* URLRequest+Extension.swift in Sources */,
 				CAC31247297A405900C25BBC /* AppDelegate.swift in Sources */,
 				CA1E176E29D6B20100280017 /* TabBarController.swift in Sources */,
 				CA1E170C29B45D4800280017 /* OAuth2TokenStorage.swift in Sources */,
 				CA1E173D29BFA6BE00280017 /* UIBlockingProgressHUD.swift in Sources */,
 				CAFA9A1C29A5E39F006021CF /* AuthViewController.swift in Sources */,
 				CA1E176629D192B800280017 /* ProfileImageService.swift in Sources */,
+				CA28E48E29E5B3E2006E341F /* URLSession+Extension.swift in Sources */,
 				CAFA9A1729A3E654006021CF /* Constants.swift in Sources */,
 				CA43BA5A2993808A0052F1FF /* SingleImageViewController.swift in Sources */,
 				CA1E177029DD255700280017 /* ImagesListService.swift in Sources */,

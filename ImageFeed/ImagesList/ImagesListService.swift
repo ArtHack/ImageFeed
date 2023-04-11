@@ -5,7 +5,7 @@ struct PhotoResult: Decodable {
     let createdAt: String?
     let welcomeDescription: String?
     let isLiked: Bool?
-    let urls: UrlsResult?
+    let urls: ImageUrlsResult?
     let width: Int?
     let height: Int?
     
@@ -20,19 +20,13 @@ struct PhotoResult: Decodable {
     }
 }
 
-struct UrlsResult: Decodable {
-    let raw: String?
-    let full: String?
-    let regular : String?
-    let small: String?
-    let thumb: String?
+struct ImageUrlsResult: Decodable {
+    let thumbImageURL: String?
+    let largeImageURL: String?
     
     enum CodingKeys: String, CodingKey {
-        case raw = "raw"
-        case full = "full"
-        case regular = "regular"
-        case small = "small"
-        case thumb = "thumb"
+        case thumbImageURL = "thumb"
+        case largeImageURL = "full"
     }
 }
 
@@ -47,26 +41,28 @@ struct Photo {
 }
 
 final class ImagesListService {
-    private (set) var photos: [Photo] = []
     static let didChangeNotification = Notification.Name(rawValue: "ImageListServiceDidChange")
+    static let shared = ImagesListService()
+    private (set) var photos: [Photo] = []
     private var lastLoadedPage: Int?
     private let perPage = "10"
     private var task: URLSessionTask?
-    private let token = OAuth2TokenStorage().token
-    static let shared = ImagesListService()
-    private let imageListService = ImagesListService()
-    
+    private let auth = OAuth2TokenStorage()
+}
+
+//MARK: - ImagesListService Extensions
+
+extension ImagesListService {
     func fetchPhotosNextPage() {
-        let nextPage = lastLoadedPage == nil
-        ? 1
-        : lastLoadedPage! + 1
+        assert(Thread.isMainThread)
+        task?.cancel()
+        let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
         
-        guard let token = token else { return }
+        guard let token = auth.token else { return }
         guard let request = fetchImagesListRequest(token, page: String(nextPage), perPage: perPage) else { return }
         
         let task = URLSession.shared.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
             DispatchQueue.main.async {
-                [weak self] in
                 guard let self = self else { return }
                 self.task = nil
                 switch result {
@@ -86,15 +82,16 @@ final class ImagesListService {
         }
         self.task = task
         task?.resume()
-        
     }
 }
+
 extension ImagesListService {
     func fetchImagesListRequest (_ token: String, page: String, perPage: String) -> URLRequest? {
+        guard let url = URL(string: "https://api.unsplash.com") else { return nil }
         var request = URLRequest.makeHTTPRequest(
             path: "/photos?page=\(page)&&per_page=\(perPage)",
             httpMethod: "GET",
-            baseURL: defaultBaseURL)
+            baseURL: url)
         request?.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
@@ -106,8 +103,8 @@ extension ImagesListService {
                           size: CGSize(width: photoResult.width ?? 1, height: photoResult.height ?? 1),
                           createdAt: date,
                           welcomeDescription: photoResult.welcomeDescription,
-                          thumbImageURL: photoResult.urls?.thumb,
-                          largeImageURL: photoResult.urls?.small,
+                          thumbImageURL: photoResult.urls?.thumbImageURL,
+                          largeImageURL: photoResult.urls?.largeImageURL,
                           isLiked: photoResult.isLiked ?? false)
     }
 }
