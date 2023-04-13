@@ -8,7 +8,8 @@
 import UIKit
 import Kingfisher
 
-final class ImagesListViewController: UIViewController {
+final class ImagesListViewController: UIViewController, ImagesListCellDelegate {
+    
     @IBOutlet private var tableView: UITableView!
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var imagesListServiceObserver: NSObjectProtocol?
@@ -43,9 +44,9 @@ final class ImagesListViewController: UIViewController {
         if segue.identifier == showSingleImageSegueIdentifier {
             let viewController = segue.destination as! SingleImageViewController
             let indexPath = sender as! IndexPath
-            let imageName = photos[indexPath.row]
-            let image = UIImage(named: "\(imageName)_full_size") ?? UIImage()
-            viewController.image = image
+            let photo = photos[indexPath.row]
+            guard let imageURL = URL(string: photo.largeImageURL!) else { return }
+            viewController.imageURL = imageURL
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -93,6 +94,7 @@ extension ImagesListViewController: UITableViewDataSource {
         guard let imageListCell = cell as? ImagesListCell else {
           return UITableViewCell()
         }
+        imageListCell.delegate = self
         configCell(for: imageListCell, with: indexPath)
         return imageListCell
     }
@@ -106,13 +108,10 @@ extension ImagesListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let imageHeight = imagesListService.photos[indexPath.row].size.height
-        let imageWidth = imagesListService.photos[indexPath.row].size.width
-        let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
-        let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
-        let scale = imageViewWidth / imageWidth
-        let cellHeight = imageHeight * scale + imageInsets.top + imageInsets.bottom
-        return cellHeight
+        let cell = photos[indexPath.row]
+        let imageSize = CGSize(width: cell.width, height: cell.height)
+        let aspectRatio = imageSize.width / imageSize.height
+        return tableView.frame.width / aspectRatio
     }
     
     func tableView(_ tableView: UITableView,
@@ -120,6 +119,37 @@ extension ImagesListViewController: UITableViewDelegate {
         if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
             imagesListService.fetchPhotosNextPage()
         }
+    }
+}
+
+extension ImagesListViewController {
+    func imageListCellDidTapLike(_ cell: ImagesListCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let photo = photos[indexPath.row]
+        UIBlockingProgressHUD().show()
+        imagesListService.changeLike(photoId: photo.id,
+                                     isLiked: photo.isLiked) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self.photos = self.imagesListService.photos
+                    cell.setIsLiked(isLiked: self.photos[indexPath.row].isLiked)
+                    UIBlockingProgressHUD().dismiss()
+                case .failure(let error):
+                    UIBlockingProgressHUD().dismiss()
+                    self.showLikeErrorAlert(with: error)
+                }
+            }
+        }
+    }
+    
+    private func showLikeErrorAlert(with error: Error) {
+        let alert = UIAlertController(
+            title: "Что-то пошло не так(",
+            message: "Не удалось поставить лайк",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

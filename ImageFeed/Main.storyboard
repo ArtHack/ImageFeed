@@ -41,7 +41,10 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdE-8c-JJO" userLabel="Like Button">
                                                     <rect key="frame" x="356" y="4" width="42" height="42"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="like_button_on"/>
+                                                    <state key="normal" image="like_button_off"/>
+                                                    <connections>
+                                                        <action selector="likeButtonClicked:" destination="pZ9-It-hcX" eventType="touchUpInside" id="rX9-eZ-ftP"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27 августа 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZ7-qv-kLf" userLabel="Date Label">
                                                     <rect key="frame" x="24" y="196" width="101.5" height="16"/>
@@ -346,7 +349,7 @@
     <resources>
         <image name="0" width="200" height="132"/>
         <image name="auth_screen_logo" width="60" height="60"/>
-        <image name="like_button_on" width="42" height="42"/>
+        <image name="like_button_off" width="42" height="42"/>
         <image name="nav_back_button_black" width="9" height="16"/>
         <image name="nav_back_button_white" width="24" height="24"/>
         <image name="share_button" width="50" height="50"/>
