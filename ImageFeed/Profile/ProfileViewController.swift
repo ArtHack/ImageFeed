@@ -12,6 +12,7 @@ final class ProfileViewController: UIViewController {
     
     private var profileImageServiceObserver: NSObjectProtocol?
     private let profileService = ProfileService.shared
+    private let token = OAuth2TokenStorage()
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -49,7 +50,7 @@ final class ProfileViewController: UIViewController {
         let button = UIButton.systemButton(
             with: UIImage(named: "logout_button")!,
             target: self,
-            action: #selector(Self.didTapLogoutButton)
+            action: #selector(self.didTapLogoutButton)
         )
         button.tintColor = .ypRed
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +60,6 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         addSubviews()
         setupLayout()
         updateProfileDetails()
@@ -75,10 +75,6 @@ final class ProfileViewController: UIViewController {
                 self.updateAvatar()
             }
         }
-
-    @objc
-    private func didTapLogoutButton() {
-    }
 
     private func addSubviews() {
         view.addSubview(imageView)
@@ -128,6 +124,46 @@ final class ProfileViewController: UIViewController {
                               options: [.cacheSerializer(FormatIndicatedCacheSerializer.png)]
         )
         imageView.contentMode = .scaleAspectFill
+    }
+    
+    @objc
+    private func didTapLogoutButton() {
+        showLogoutAlert()
+    }
+    
+    private func logOut() {
+        token.clearToken()
+        WebViewViewController.clean()
+        cleanServiceData()
+        tabBarController?.dismiss(animated: true)
+        guard let window = UIApplication.shared.windows.first else {
+            fatalError("Invalid Configuration")
+        }
+        window.rootViewController = SplashViewController()
+    }
+    
+    private func showLogoutAlert() {
+        let alert = UIAlertController(
+            title: "Пока, пока!",
+            message: "Уверены что хотите выйти?",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Да",
+                                      style: .default,
+                                     handler: { [weak self] action in
+            guard let self = self else { return }
+            self.logOut()
+        }))
+        alert.addAction(UIAlertAction(title: "Нет",
+                                      style: .default,
+                                     handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+                        
+    private func cleanServiceData() {
+            ImagesListService.shared.imagesListServiceClean()
+            ProfileImageService.shared.clean()
+            profileService.clean()
+            
     }
 }
 

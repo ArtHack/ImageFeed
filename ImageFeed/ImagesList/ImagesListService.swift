@@ -53,6 +53,13 @@ final class ImagesListService {
     private let perPage = "10"
     private var task: URLSessionTask?
     private let auth = OAuth2TokenStorage()
+    
+    func imagesListServiceClean() {
+        photos = []
+        lastLoadedPage = nil
+        task?.cancel()
+        task = nil
+    }
 }
 
 //MARK: - ImagesListService Extensions
