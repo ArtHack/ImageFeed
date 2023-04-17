@@ -135,7 +135,6 @@ final class ProfileViewController: UIViewController {
         token.clearToken()
         WebViewViewController.clean()
         cleanServiceData()
-        tabBarController?.dismiss(animated: true)
         guard let window = UIApplication.shared.windows.first else {
             fatalError("Invalid Configuration")
         }

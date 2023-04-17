@@ -78,7 +78,11 @@ extension ImagesListViewController {
                 guard let self = self else { return }
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
-            cell.dateLabel.text = dateFormatter.string(from: imagesListService.photos[indexPath.row].createdAt ?? Date())
+            if let date = imagesListService.photos[indexPath.row].createdAt {
+                cell.dateLabel.text = dateFormatter.string(from: date)
+            } else {
+                cell.dateLabel.text = ""
+            }
         }
     }
 }

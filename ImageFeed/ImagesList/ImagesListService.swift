@@ -67,7 +67,9 @@ final class ImagesListService {
 extension ImagesListService {
     func fetchPhotosNextPage() {
         assert(Thread.isMainThread)
+        if task != nil { return }
         task?.cancel()
+        
         let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
         
         guard let token = auth.token else { return }
