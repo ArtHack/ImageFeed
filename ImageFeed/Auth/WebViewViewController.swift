@@ -1,7 +1,7 @@
 import UIKit
 import WebKit
 
-protocol WebViewViewControllerProtocol: AnyObject {
+public protocol WebViewViewControllerProtocol: AnyObject {
     var presenter: WebViewPresenterProtocol? { get set }
     func load(request: URLRequest)
     func setProgressValue(_ newValue: Float)
@@ -14,9 +14,6 @@ protocol WebViewViewControllerDelegate: AnyObject {
 }
 
 final class WebViewViewController: UIViewController & WebViewViewControllerProtocol {
-    func load(request: URLRequest) {
-        webView.load(request)
-    }
     
     var presenter: WebViewPresenterProtocol?
     
@@ -63,11 +60,11 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
+    
+    func load(request: URLRequest) {
+        webView.load(request)
+    }
 
-//    private func updateProgress() {
-//        progressView.progress = Float(webView.estimatedProgress)
-//        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
-//    }
     func setProgressValue(_ newValue: Float) {
         progressView.progress = newValue
     }
@@ -77,6 +74,7 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
     }
 }
 
+//MARK: - Extensions
 extension WebViewViewController: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,

@@ -1,6 +1,6 @@
 import Foundation
 
-protocol WebViewPresenterProtocol: AnyObject {
+public protocol WebViewPresenterProtocol {
     var view: WebViewViewControllerProtocol? { get set }
 //  Логика создания и отправки запроса.
     func viewDidLoad()
@@ -42,14 +42,5 @@ final class WebViewPresenter: WebViewPresenterProtocol {
     
     func code(from url: URL) -> String? {
         authHelper.code(from: url)
-//         if let urlComponents = URLComponents(string: url.absoluteString),
-//            urlComponents.path == "/oauth/authorize/native",
-//            let items = urlComponents.queryItems,
-//            let codeItem = items.first(where: { $0.name == "code" })
-//          {
-//            return codeItem.value
-//          } else {
-//                return nil
-//          }
      }
 }
