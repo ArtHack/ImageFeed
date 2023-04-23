@@ -45,7 +45,7 @@ extension URLRequest {
     static func makeHTTPRequest(
         path: String,
         httpMethod: String,
-        baseURL: URL = defaultBaseURL
+        baseURL: URL = DefaultBaseURL
     ) -> URLRequest? {
         guard let url = URL(string: path, relativeTo: baseURL)
         else {
