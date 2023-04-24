@@ -24,6 +24,7 @@ final class ProfileViewController: UIViewController {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
+        label.accessibilityIdentifier = "Name Lastname"
         label.textColor = .ypWhite
         label.font = .boldSystemFont(ofSize: 23)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -32,6 +33,7 @@ final class ProfileViewController: UIViewController {
 
     private let loginNameLabel: UILabel = {
         let label = UILabel()
+        label.accessibilityIdentifier = "@username"
         label.textColor = .ypGray
         label.font = .systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +54,7 @@ final class ProfileViewController: UIViewController {
             target: self,
             action: #selector(self.didTapLogoutButton)
         )
+        button.accessibilityIdentifier = "logout button"
         button.tintColor = .ypRed
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

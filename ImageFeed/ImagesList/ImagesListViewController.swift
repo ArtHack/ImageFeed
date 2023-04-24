@@ -15,6 +15,7 @@ final class ImagesListViewController: UIViewController, ImagesListCellDelegate {
     private var imagesListServiceObserver: NSObjectProtocol?
     private var photos: [Photo] = []
     private let imagesListService = ImagesListService.shared
+    
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
